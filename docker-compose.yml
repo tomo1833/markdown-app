@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  front:
+    container_name: front
+    build: ./front
+    volumes:
+      - ./front/src:/usr/src
+    command: sh -c "cd markdown-app && yarn start"
+    ports:
+      - "3000:3000"
+
+  back:
+    container_name: back
+    build: ./back
+    volumes:
+      - ./back/src:/usr/src
+    command: flask run --host 0.0.0.0 --port 5000
+    ports:
+      - "5000:5000"
+    environment:
+      - MYSQL_ROOT_PASSWORD=adminpass
+      - MYSQL_DATABASE=mdb
+      - MYSQL_USER=mdbuser
+      - MYSQL_PASSWORD=mdbpass
+    depends_on:
+      - database
+
+  database:
+    container_name: database
+    build: ./database
+    volumes:
+      - ./database/data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=adminpass
+      - MYSQL_DATABASE=mdb
+      - MYSQL_USER=mdbuser
+      - MYSQL_PASSWORD=mdbpass
