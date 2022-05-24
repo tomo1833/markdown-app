@@ -1,25 +1,15 @@
-import axios from "axios";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Markdown } from "./components/pages/Markdown";
+import { Top } from "./components/pages/Top";
 
 export const App: FC = () => {
-
-  type Markdown = {
-    url: string
-    title: string
-    body: string;
-  }
-
-  const [markdown, setMarkdown] = useState([]);
-
-  useEffect(() => {
-    axios.get("http://localhost:5000/markdown")
-      .then(res => { setMarkdown(res.data); })
-  }, [])
   return (
-    <div>
-      {markdown.map((markdown_data: Markdown, index: number) => {
-        return (<p key={index} >{markdown_data.title}</p>);
-      })}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Top />} />
+        <Route path="*" element={<Markdown />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
