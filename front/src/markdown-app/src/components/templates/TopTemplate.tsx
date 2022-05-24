@@ -9,11 +9,11 @@ import { MarkdownType } from "../../types/MarkdownType.type"
 import { HeaderNavigation } from "../uilibs/organisms/HeaderNavigation";
 import { Theme } from "../uilibs/theme/Theme";
 
-interface MarkdownProps {
+interface Props {
   markdowns: Array<MarkdownType>
 };
 
-export const TopTemplate: FC<MarkdownProps> = (props) => {
+export const TopTemplate: FC<Props> = (props) => {
 
   const { markdowns } = props;
   const theme = Theme;
@@ -21,7 +21,7 @@ export const TopTemplate: FC<MarkdownProps> = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box component="main" >
+      <Box>
         <HeaderNavigation />
         <Container maxWidth="xl" sx={styleContainer}>
           {markdowns.map((markdown) => { return <Link to={markdown.url} key={markdown.url}>{markdown.title}</Link> })}
