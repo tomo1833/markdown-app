@@ -10,9 +10,7 @@ import { HomeNavigation } from "../molecules/HomeNavi";
 
 export const HeaderNavigation: FC = () => {
 
-  const StyleToolBar = {
-    display: "flex", justifyContent: "space-between"
-  }
+  const StyleToolBar = { display: "flex", justifyContent: "space-between" };
 
   return (
     <AppBar position="relative">
@@ -22,4 +20,4 @@ export const HeaderNavigation: FC = () => {
       </Toolbar>
     </AppBar>
   );
-}
+};

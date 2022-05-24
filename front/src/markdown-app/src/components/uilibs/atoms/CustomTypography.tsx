@@ -9,6 +9,6 @@ interface Props {
 export const CustomTypography: FC<Props> = (props) => {
   const { text } = props;
   return (
-    <Typography>{text}</Typography>
+    <Typography sx={{color: "white"}}>{text}</Typography>
   );
 };

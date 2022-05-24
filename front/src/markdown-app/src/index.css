@@ -11,3 +11,65 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/** 見出し*/
+.markdown-view h1 {
+  background-color: #1976d2;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.markdown-view h2 {
+  padding: 9px 10px;
+  border-bottom: solid 3px #1976d2
+}
+
+.markdown-view h3 {
+  padding: 8px 10px;
+  border-bottom: solid 2px #1976d2
+}
+
+.markdown-view h4 {
+  padding: 7px 10px;
+  border-bottom: solid 1px #1976d2
+}
+
+/** pre */
+.markdown-view pre {
+  padding: 6px 10px;
+  background-color: #1976d2;
+}
+
+.markdown-view code {
+  font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+}
+
+/** テーブル */
+.markdown-view table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  padding: 0;
+  width: 650px;
+  table-layout: fixed;
+}
+
+.markdown-view table tr {
+  background-color: #ffff;
+  border: 1px solid #1976d2;
+  padding: .35em;
+}
+
+.markdown-view table th,
+.markdown-view table td {
+  padding: 1em 10px 1em 1em;
+  border-right: 1px solid #1976d2;
+}
+
+.markdown-view table th {
+  font-size: .85em;
+}
+
+.markdown-view table thead tr {
+  background-color: #1976d2;
+  color: #ffff;
+}

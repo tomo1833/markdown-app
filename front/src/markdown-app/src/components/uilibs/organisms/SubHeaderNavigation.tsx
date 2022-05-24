@@ -44,13 +44,13 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
   };
 
   const StyleToolBar = { backgroundColor: "#1976d2", display: "flex", justifyContent: "space-between" };
-
+  const StyleRightBox = { display: "flex", flexDirection: "row" };
   return (
     <Box>
       <Toolbar sx={StyleToolBar}>
         <SwitchTextFieldTypography editMode={editMode} label='url' value={markdown.url} onChangeValue={onChangeURL} text={markdown.url} />
         <SwitchTextFieldTypography editMode={editMode} label='title' value={markdown.title} onChangeValue={onChangeTitle} text={markdown.title} />
-        <Box>
+        <Box sx={StyleRightBox}>
           <SwitchInsertUpdateNavi editMode={editMode} insertMode={insertMode} onClickSaveMarkdown={onClickSaveMarkdown} onClickUpdateMarkdown={onClickUpdateMarkdown} />
           <SwitchModeButtonNavi editMode={editMode} onClickSwitchMode={onClickSwitchMode} />
         </Box>

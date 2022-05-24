@@ -46,7 +46,7 @@ export const EditTemplate: FC<Props> = (props) => {
             </Container >
           </Box>
           <Box sx={StyleRightBox}>
-            <Container >
+            <Container className="markdown-view" >
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown.body}</ReactMarkdown>
             </Container >
           </Box>

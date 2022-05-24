@@ -33,7 +33,7 @@ export const ViewTemplate: FC<Props> = (props) => {
         <SubHeaderNavigation markdown={markdown} setMarkdown={setMarkdown} editMode={editMode} insertMode={insertMode} setInsertMode={setInsertMode}  onClickSwitchMode={onClickSwitchMode}/>
         <Drawer></Drawer>
         <Box sx={StyleMainBox}>
-          <Container maxWidth="xl">
+          <Container className="markdown-view" maxWidth="xl">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown.body}</ReactMarkdown>
           </Container>
         </Box>

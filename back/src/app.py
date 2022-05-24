@@ -10,6 +10,7 @@ import json
 app = Flask(__name__)
 CORS(app)
 
+RESULT_CODE_SUCESS = "sucess"
 
 def db_connection():
     conn = pymysql.connect(
