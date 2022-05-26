@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { MarkdownType } from "../../types/MarkdownType.type";
@@ -12,6 +12,7 @@ export const Markdown: FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [markdown, setMarkdown] = useState<MarkdownType>({ url: '', title: '', body: '' });
   const [insertMode, setInsertMode] = useState<boolean>(false);
+  const [urlLocation, setUrlLocation] = useState<string>("");
 
   const location = useLocation();
 
@@ -22,11 +23,13 @@ export const Markdown: FC = () => {
           setMarkdown({ url: decodeURI(location.pathname), title: '', body: '' });
           setEditMode(true);
           setInsertMode(true);
+
         } else {
           setMarkdown(res.data);
+          setUrlLocation(res.data.url);
         }
       })
-  }, [])
+  }, [urlLocation])
 
   const onClickSwitchMode = () => { setEditMode(!editMode) }
 
@@ -34,7 +37,7 @@ export const Markdown: FC = () => {
     <>
       {editMode ?
         <EditTemplate markdown={markdown} setMarkdown={setMarkdown} editMode={editMode} insertMode={insertMode} setInsertMode={setInsertMode} onClickSwitchMode={onClickSwitchMode} /> :
-        <ViewTemplate markdown={markdown} setMarkdown={setMarkdown} editMode={editMode} insertMode={insertMode} setInsertMode={setInsertMode} onClickSwitchMode={onClickSwitchMode} />
+        <ViewTemplate markdown={markdown} setMarkdown={setMarkdown} editMode={editMode} insertMode={insertMode} setInsertMode={setInsertMode} onClickSwitchMode={onClickSwitchMode} setUrlLocation={setUrlLocation} />
       }
     </>
   );

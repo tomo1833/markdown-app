@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { Container } from "@mui/material";
+import { Container, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import { FC, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
@@ -26,7 +26,7 @@ export const EditTemplate: FC<Props> = (props) => {
 
   const StyleTemplateBox = { display: "flex", flexDirection: "column", height: "100vh" };
   const StyleMainBox = { display: "flex", flexDirection: "row", height: "100vh", width: '100%' };
-  const StyleLeftBox = { height: "100vh", width: '50%', backgroundColor: Theme.palette.primary.main};
+  const StyleLeftBox = { height: "100vh", width: '50%', backgroundColor: Theme.palette.primary.main };
   const StyleRightBox = { height: "100vh", width: '50%' };
 
   const onChangeValue = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ url: markdown.url, title: markdown.title, body: event.target.value }); };
@@ -38,7 +38,8 @@ export const EditTemplate: FC<Props> = (props) => {
     <ThemeProvider theme={Theme}>
       <Box sx={StyleTemplateBox}>
         <HeaderNavigation />
-        <SubHeaderNavigation markdown={markdown} setMarkdown={setMarkdown} editMode={editMode} insertMode={insertMode} setInsertMode={setInsertMode}  onClickSwitchMode={onClickSwitchMode}/>
+        <Toolbar />
+        <SubHeaderNavigation markdown={markdown} setMarkdown={setMarkdown} editMode={editMode} insertMode={insertMode} setInsertMode={setInsertMode} onClickSwitchMode={onClickSwitchMode} />
         <Box sx={StyleMainBox}>
           <Box sx={StyleLeftBox}>
             <Container>

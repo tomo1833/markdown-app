@@ -10,10 +10,10 @@ import { HomeNavigation } from "../molecules/HomeNavi";
 
 export const HeaderNavigation: FC = () => {
 
-  const StyleToolBar = { display: "flex", justifyContent: "space-between"};
+  const StyleToolBar = { display: "flex", justifyContent: "space-between" };
 
   return (
-    <AppBar position="relative">
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar sx={StyleToolBar}>
         <Typography>markdown</Typography>
         <HomeNavigation />
