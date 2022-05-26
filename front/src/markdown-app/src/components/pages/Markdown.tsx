@@ -1,6 +1,6 @@
-import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 import { MarkdownType } from "../../types/MarkdownType.type";
 

@@ -16,8 +16,8 @@ export const HomeNavigation: FC = () => {
   const onClickHome = () => { navigate('/') };
 
   return (
-    <BottomNavigation showLabels>
-      <BottomNavigationAction label="ホーム" icon={<HomeIcon />} onClick={onClickHome} />
+    <BottomNavigation showLabels sx={{ backgroundColor: "primary.main" }}>
+      <BottomNavigationAction sx={{ color: "primary.contrastText" }} label="ホーム" icon={<HomeIcon />} onClick={onClickHome} />
     </BottomNavigation>
   )
 }

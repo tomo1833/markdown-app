@@ -3,7 +3,9 @@ import React, { FC } from "react";
 import axios from "axios";
 
 import {
+  AppBar,
   Box,
+  Drawer,
   Toolbar,
 } from "@mui/material";
 
@@ -11,6 +13,7 @@ import { MarkdownType } from "../../../types/MarkdownType.type";
 import { SwitchTextFieldTypography } from "../molecules/SwitchTextFieldTypography";
 import { SwitchModeButtonNavi } from "../molecules/SwitchModeNavi";
 import { SwitchInsertUpdateNavi } from "../molecules/SwitchInsertUpdateNavi";
+import { Theme } from "../theme/Theme";
 
 interface Props {
   markdown: MarkdownType;
@@ -43,10 +46,12 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
       });
   };
 
-  const StyleToolBar = { backgroundColor: "#1976d2", display: "flex", justifyContent: "space-between" };
+  const StyleBox = { backgroundColor: Theme.palette.secondary.main };
+  const StyleToolBar = { display: "flex", justifyContent: "space-between" };
   const StyleRightBox = { display: "flex", flexDirection: "row" };
+
   return (
-    <Box>
+    <Box sx={StyleBox}>
       <Toolbar sx={StyleToolBar}>
         <SwitchTextFieldTypography editMode={editMode} label='url' value={markdown.url} onChangeValue={onChangeURL} text={markdown.url} />
         <SwitchTextFieldTypography editMode={editMode} label='title' value={markdown.title} onChangeValue={onChangeTitle} text={markdown.title} />

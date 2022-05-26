@@ -26,7 +26,7 @@ export const EditTemplate: FC<Props> = (props) => {
 
   const StyleTemplateBox = { display: "flex", flexDirection: "column", height: "100vh" };
   const StyleMainBox = { display: "flex", flexDirection: "row", height: "100vh", width: '100%' };
-  const StyleLeftBox = { height: "100vh", width: '50%', backgroundColor: "#121212" };
+  const StyleLeftBox = { height: "100vh", width: '50%', backgroundColor: Theme.palette.primary.main};
   const StyleRightBox = { height: "100vh", width: '50%' };
 
   const onChangeValue = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ url: markdown.url, title: markdown.title, body: event.target.value }); };
@@ -41,7 +41,7 @@ export const EditTemplate: FC<Props> = (props) => {
         <SubHeaderNavigation markdown={markdown} setMarkdown={setMarkdown} editMode={editMode} insertMode={insertMode} setInsertMode={setInsertMode}  onClickSwitchMode={onClickSwitchMode}/>
         <Box sx={StyleMainBox}>
           <Box sx={StyleLeftBox}>
-            <Container >
+            <Container>
               <MarkdownEditTextFiled markdown={markdown} onChangeValue={onChangeValue} />
             </Container >
           </Box>

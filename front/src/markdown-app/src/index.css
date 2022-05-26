@@ -34,6 +34,10 @@ code {
   border-bottom: solid 1px #1976d2
 }
 
+.markdown-view h5 {
+  padding: 6px 10px;
+}
+
 /** pre */
 .markdown-view pre {
   padding: 6px 10px;
@@ -49,7 +53,7 @@ code {
   border-collapse: collapse;
   margin: 0 auto;
   padding: 0;
-  width: 650px;
+  width: 100%;
   table-layout: fixed;
 }
 
@@ -61,7 +65,7 @@ code {
 
 .markdown-view table th,
 .markdown-view table td {
-  padding: 1em 10px 1em 1em;
+  padding: 5px 10px;
   border-right: 1px solid #1976d2;
 }
 
