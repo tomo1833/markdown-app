@@ -31,7 +31,7 @@ code {
 
 .markdown-view h4 {
   padding: 7px 10px;
-  border-bottom: solid 1px #1976d2
+  border-bottom: solid 1px #1976d2;
 }
 
 .markdown-view h5 {
@@ -41,11 +41,12 @@ code {
 /** pre */
 .markdown-view pre {
   padding: 6px 10px;
-  background-color: #1976d2;
+  background-color:  #000000;
 }
 
 .markdown-view code {
   font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  color:  #ffffff;
 }
 
 /** テーブル */

@@ -1,7 +1,9 @@
 import { ThemeProvider } from "@emotion/react";
 import { Container, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
+import Graphviz from "graphviz-react";
 import { FC, useEffect } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { MarkdownType } from "../../types/MarkdownType.type";
@@ -20,6 +22,16 @@ interface Props {
   onClickSwitchMode: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
+const  ErrorFallback = () => {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>表示できません</pre>
+    </div>
+  )
+}
+
+
 export const EditTemplate: FC<Props> = (props) => {
 
   const { markdown, setMarkdown, editMode, insertMode, setInsertMode, onClickSwitchMode } = props;
@@ -33,6 +45,7 @@ export const EditTemplate: FC<Props> = (props) => {
 
   useEffect(() => {
   }, [markdown.body]);
+
 
   return (
     <ThemeProvider theme={Theme}>
@@ -48,7 +61,24 @@ export const EditTemplate: FC<Props> = (props) => {
           </Box>
           <Box sx={StyleRightBox}>
             <Container className="markdown-view" >
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown.body}</ReactMarkdown>
+            <ReactMarkdown
+              children={markdown.body}
+              remarkPlugins={[remarkGfm]}
+              components={{
+                code({ node, inline, className, children, ...props }) {
+                  const match = /language-flow/.exec(className || '');
+                  return match ? (
+                    <ErrorBoundary FallbackComponent={ErrorFallback} >
+                      <Graphviz dot={String(children)} />
+                    </ErrorBoundary>
+                  ) : (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  )
+                }
+              }}
+            />
             </Container >
           </Box>
         </Box>
