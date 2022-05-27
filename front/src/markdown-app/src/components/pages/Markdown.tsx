@@ -17,18 +17,27 @@ export const Markdown: FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    axios.get<MarkdownType>("http://localhost:5000/markdown" + location.pathname)
-      .then(res => {
-        if (!Object.keys(res.data).length) {
-          setMarkdown({ url: decodeURI(location.pathname), title: '', body: '' });
-          setEditMode(true);
-          setInsertMode(true);
-
-        } else {
-          setMarkdown(res.data);
-          setUrlLocation(res.data.url);
-        }
-      })
+    if (location.pathname === 'careate_new_page') {
+      // 新規登録
+      setMarkdown({ url: '', title: '', body: '' });
+      setEditMode(true);
+      setInsertMode(true);
+    } else {
+      // 新規/更新の判定
+      axios.get<MarkdownType>("http://localhost:5000/markdown" + location.pathname)
+        .then(res => {
+          if (!Object.keys(res.data).length) {
+            // 新規登録(データ無し)
+            setMarkdown({ url: decodeURI(location.pathname), title: '', body: '' });
+            setEditMode(true);
+            setInsertMode(true);
+          } else {
+            // 表示(データあり)
+            setMarkdown(res.data);
+            setUrlLocation(res.data.url);
+          }
+        });
+    }
   }, [urlLocation])
 
   const onClickSwitchMode = () => { setEditMode(!editMode) }
