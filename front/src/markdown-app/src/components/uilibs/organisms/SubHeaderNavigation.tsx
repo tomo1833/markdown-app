@@ -1,11 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 import axios from "axios";
 
 import {
+  Alert,
   AppBar,
   Box,
   Drawer,
+  Snackbar,
   Toolbar,
 } from "@mui/material";
 
@@ -28,6 +30,8 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
 
   const { markdown, setMarkdown, editMode, insertMode, setInsertMode, onClickSwitchMode } = props;
 
+  const [open, setOpen] = useState(false);
+
   const onChangeURL = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ url: event.target.value, title: markdown.title, body: markdown.body }) };
   const onChangeTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ url: markdown.url, title: event.target.value, body: markdown.body }) };
 
@@ -36,6 +40,7 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
       .then(res => {
         console.log(res.data);
         setInsertMode(false);
+        setOpen(true);
       });
   };
 
@@ -43,7 +48,15 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
     axios.put(`http://localhost:5000/markdown` + markdown.url, markdown)
       .then(res => {
         console.log(res.data);
+        setOpen(true);
       });
+  };
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
   };
 
   const StyleBox = { backgroundColor: Theme.palette.secondary.main };
@@ -60,6 +73,13 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
           <SwitchModeButtonNavi editMode={editMode} onClickSwitchMode={onClickSwitchMode} />
         </Box>
       </Toolbar>
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'center' }}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          成功しました。
+        </Alert>
+      </Snackbar>
+
     </Box>
   );
 };

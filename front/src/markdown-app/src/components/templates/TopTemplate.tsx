@@ -22,8 +22,8 @@ export const TopTemplate: FC<Props> = (props) => {
     <ThemeProvider theme={theme}>
       <Box>
         <HeaderNavigation />
+        <Toolbar />
         <Container maxWidth="xl" sx={styleContainer}>
-          <Toolbar />
           <MarkdownCardList markdowns={markdowns} />
         </Container>
       </Box>
