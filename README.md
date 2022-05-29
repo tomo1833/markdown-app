@@ -14,6 +14,9 @@ Typescript練習用に作成しました。
 [40代から始めるブログ](https://bsf40.blogspot.com/)
 
 ### 履歴
+#### 2022年05月29日　ver 0.4
+* Markdwon機能追加
+
 #### 2022年05月27日　ver 0.3
 * flow機能追加
 
