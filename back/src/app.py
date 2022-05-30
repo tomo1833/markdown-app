@@ -28,7 +28,7 @@ def db_connection():
 def get_markdown():
     conn = db_connection()
     with conn.cursor() as cur:
-        cur.execute(f"SELECT * FROM markdown")
+        cur.execute(f"SELECT url, title, body FROM markdown ORDER BY update_datetime DESC")
         results = cur.fetchall()
 
     return json.dumps(results, indent=2)
@@ -38,7 +38,7 @@ def get_markdown():
 def get_markdown_url(path):
     conn = db_connection()
     with conn.cursor() as cur:
-        cur.execute(f"SELECT * FROM markdown WHERE url = '{path}'")
+        cur.execute(f"SELECT url, title, body FROM markdown WHERE url = '{path}'")
         results = cur.fetchall()
 
     if not results:

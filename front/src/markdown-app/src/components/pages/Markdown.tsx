@@ -17,9 +17,9 @@ export const Markdown: FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === 'careate_new_page') {
+    if (location.pathname === 'create_new_page') {
       // 新規登録
-      setMarkdown({ url: '', title: '', body: '' });
+      setMarkdown({ url: '', title: '', body: '# 新規登録' });
       setEditMode(true);
       setInsertMode(true);
     } else {
@@ -28,7 +28,7 @@ export const Markdown: FC = () => {
         .then(res => {
           if (!Object.keys(res.data).length) {
             // 新規登録(データ無し)
-            setMarkdown({ url: decodeURI(location.pathname), title: '', body: '' });
+            setMarkdown({ url: decodeURI(location.pathname), title: '', body: '# 新規登録' });
             setEditMode(true);
             setInsertMode(true);
           } else {

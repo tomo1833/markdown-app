@@ -18,7 +18,7 @@ export const TopTemplate: FC<Props> = (props) => {
   const { markdowns } = props;
 
   const navigate = useNavigate();
-  const onClickNewPage = () => { navigate('careate_new_page') };
+  const onClickNewPage = () => { navigate('create_new_page') };
 
   const theme = Theme;
   const styleContainer = { display: "flex", flexDirection: "row", paddingTop: "10px" };
