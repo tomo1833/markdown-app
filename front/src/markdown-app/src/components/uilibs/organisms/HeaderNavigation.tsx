@@ -1,12 +1,23 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import {
   AppBar,
+  BottomNavigation,
+  BottomNavigationAction,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
   Toolbar,
   Typography
 } from "@mui/material";
 
 import { HomeNavigation } from "../molecules/HomeNavi";
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+
 
 export const HeaderNavigation: FC = () => {
 

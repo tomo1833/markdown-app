@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 
 import Graphviz from "graphviz-react";
-import { Box, Container, ThemeProvider, Toolbar, CssBaseline } from "@mui/material";
+import { Box, Container, ThemeProvider, Toolbar, CssBaseline, Paper, Grid, Typography } from "@mui/material";
 import { MarkdownType } from "../../types/MarkdownType.type";
 
 import { Theme } from "../uilibs/theme/Theme";
@@ -32,6 +32,24 @@ const ErrorFallback = () => {
   )
 }
 
+const converterH2 = ({ ...props }) => {
+  return (
+    <p>{props.children}</p>
+  );
+}
+
+const converterH3 = ({ ...props }) => {
+  return (
+    <p>{props.children}</p>
+  );
+}
+
+const converterH4 = ({ ...props }) => {
+  return (
+    <p>{props.children}</p>
+  );
+}
+
 
 export const ViewTemplate: FC<Props> = (props) => {
   const { markdown, setMarkdown, editMode, insertMode, setInsertMode, onClickSwitchMode, setUrlLocation } = props;
@@ -46,24 +64,38 @@ export const ViewTemplate: FC<Props> = (props) => {
           <Toolbar />
           <SubHeaderNavigation markdown={markdown} setMarkdown={setMarkdown} editMode={editMode} insertMode={insertMode} setInsertMode={setInsertMode} onClickSwitchMode={onClickSwitchMode} />
           <Container className="markdown-view" maxWidth="xl">
-            <ReactMarkdown
-              children={markdown.body}
-              remarkPlugins={[remarkGfm]}
-              components={{
-                code({ node, inline, className, children, ...props }) {
-                  const match = /language-flow/.exec(className || '');
-                  return match ? (
-                    <ErrorBoundary FallbackComponent={ErrorFallback} >
-                      <Graphviz dot={String(children)} />
-                    </ErrorBoundary>
-                  ) : (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
-                  )
-                }
-              }}
-            />
+            <Grid container spacing={2}>
+              <Grid item xs={8}>
+                <ReactMarkdown
+                  children={markdown.body}
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    code({ node, inline, className, children, ...props }) {
+                      const match = /language-flow/.exec(className || '');
+                      return match ? (
+                        <ErrorBoundary FallbackComponent={ErrorFallback} >
+                          <Graphviz dot={String(children)} />
+                        </ErrorBoundary>
+                      ) : (
+                        <code className={className} {...props}>
+                          {children}
+                        </code>
+                      )
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <Paper elevation={3} id="table-of-contents" sx={{ padding: "10px" }}>
+                  <Typography>目次</Typography>
+                  <ReactMarkdown
+                    allowedElements={["h2", "h3", "h4"]}
+                    children={markdown.body}
+                    components={{ h2: converterH2, h3: converterH3, h4: converterH4, }}
+                  />
+                </Paper>
+              </Grid>
+            </Grid>
           </Container>
         </Box>
       </Box>
