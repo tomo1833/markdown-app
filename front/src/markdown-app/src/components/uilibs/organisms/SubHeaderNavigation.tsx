@@ -17,21 +17,38 @@ import { Theme } from "../theme/Theme";
 
 interface Props {
   markdown: MarkdownType;
-  setMarkdown: React.Dispatch<React.SetStateAction<MarkdownType>>;
   editMode: boolean;
   insertMode: boolean;
+  tags: String[];
+  tagOpen: boolean;
+  setMarkdown: React.Dispatch<React.SetStateAction<MarkdownType>>;
   setInsertMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setTags: React.Dispatch<React.SetStateAction<String[]>>;
+  setTagOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  tagDialogUpdate: React.MouseEventHandler<HTMLButtonElement>;
   onClickSwitchMode: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const SubHeaderNavigation: FC<Props> = (props) => {
 
-  const { markdown, setMarkdown, editMode, insertMode, setInsertMode, onClickSwitchMode } = props;
+  const {
+    markdown,
+    editMode,
+    insertMode,
+    tags,
+    tagOpen,
+    setMarkdown,
+    setInsertMode,
+    setTags,
+    setTagOpen,
+    tagDialogUpdate,
+    onClickSwitchMode
+  } = props;
 
   const [open, setOpen] = useState(false);
 
-  const onChangeURL = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ url: event.target.value, title: markdown.title, body: markdown.body }) };
-  const onChangeTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ url: markdown.url, title: event.target.value, body: markdown.body }) };
+  const onChangeURL = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ id: markdown.id, url: event.target.value, title: markdown.title, body: markdown.body }) };
+  const onChangeTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ id: markdown.id, url: markdown.url, title: event.target.value, body: markdown.body }) };
 
   const onClickSaveMarkdown = () => {
     axios.post(`http://localhost:5000/markdown`, markdown)
@@ -50,10 +67,7 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
       });
   };
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -67,17 +81,25 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
         <SwitchTextFieldTypography editMode={editMode} label='url' value={markdown.url} onChangeValue={onChangeURL} text={markdown.url} />
         <SwitchTextFieldTypography editMode={editMode} label='title' value={markdown.title} onChangeValue={onChangeTitle} text={markdown.title} />
         <Box sx={StyleRightBox}>
-          <SwitchInsertUpdateNavi editMode={editMode} insertMode={insertMode} onClickSaveMarkdown={onClickSaveMarkdown} onClickUpdateMarkdown={onClickUpdateMarkdown} />
+          <SwitchInsertUpdateNavi
+            editMode={editMode}
+            insertMode={insertMode}
+            tags={tags}
+            tagOpen={tagOpen}
+            setTags={setTags}
+            setTagOpen={setTagOpen}
+            onClickSaveMarkdown={onClickSaveMarkdown}
+            onClickUpdateMarkdown={onClickUpdateMarkdown}
+            tagDialogUpdate={tagDialogUpdate} />
           <SwitchModeButtonNavi editMode={editMode} onClickSwitchMode={onClickSwitchMode} />
         </Box>
       </Toolbar>
 
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'center' }}>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           成功しました。
         </Alert>
       </Snackbar>
-
     </Box>
   );
 };

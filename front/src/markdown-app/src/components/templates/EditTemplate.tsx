@@ -12,13 +12,17 @@ import { SubHeaderNavigation } from "../uilibs/organisms/SubHeaderNavigation";
 import { Theme } from "../uilibs/theme/Theme";
 import { CustomEditor } from "../uilibs/atoms/CustomEditor";
 
-
 interface Props {
   markdown: MarkdownType;
   setMarkdown: React.Dispatch<React.SetStateAction<MarkdownType>>;
   editMode: boolean;
   insertMode: boolean;
   setInsertMode: React.Dispatch<React.SetStateAction<boolean>>;
+  tags: String[];
+  setTags: React.Dispatch<React.SetStateAction<String[]>>;
+  tagOpen: boolean;
+  setTagOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  tagDialogUpdate: React.MouseEventHandler<HTMLButtonElement>;
   onClickSwitchMode: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -31,10 +35,21 @@ const ErrorFallback = () => {
   )
 }
 
-
 export const EditTemplate: FC<Props> = (props) => {
 
-  const { markdown, setMarkdown, editMode, insertMode, setInsertMode, onClickSwitchMode } = props;
+  const {
+    markdown,
+    setMarkdown,
+    editMode,
+    insertMode,
+    tags,
+    setTags,
+    tagOpen,
+    setTagOpen,
+    tagDialogUpdate,
+    setInsertMode,
+    onClickSwitchMode
+  } = props;
 
   const StyleTemplateBox = { display: "flex", flexDirection: "column", height: "100vh" };
   const StyleMainBox = { display: "flex", flexDirection: "row", height: "100vh", width: '100%' };
@@ -42,19 +57,30 @@ export const EditTemplate: FC<Props> = (props) => {
   const StyleRightBox = { height: "100vh", width: '50%' };
 
   const [value, setValue] = useState<string>(markdown.body);
-  const onChangeValue = (value: string) => { console.log(value); setMarkdown({ url: markdown.url, title: markdown.title, body: value }); setValue(value) };
+  const onChangeValue = (value: string) => { console.log(value); setMarkdown({ id: markdown.id, url: markdown.url, title: markdown.title, body: value }); setValue(value) };
 
   useEffect(() => {
-    setMarkdown({ url: markdown.url, title: markdown.title, body: value });
+    setMarkdown({ id: markdown.id, url: markdown.url, title: markdown.title, body: value });
   }, [value])
-
 
   return (
     <ThemeProvider theme={Theme}>
       <Box sx={StyleTemplateBox}>
         <HeaderNavigation />
         <Toolbar />
-        <SubHeaderNavigation markdown={markdown} setMarkdown={setMarkdown} editMode={editMode} insertMode={insertMode} setInsertMode={setInsertMode} onClickSwitchMode={onClickSwitchMode} />
+        <SubHeaderNavigation
+          markdown={markdown}
+          setMarkdown={setMarkdown}
+          editMode={editMode}
+          insertMode={insertMode}
+          setInsertMode={setInsertMode}
+          tags={tags}
+          setTags={setTags}
+          tagOpen={tagOpen}
+          setTagOpen={setTagOpen}
+          tagDialogUpdate={tagDialogUpdate}
+          onClickSwitchMode={onClickSwitchMode}
+        />
         <Box sx={StyleMainBox}>
           <Box sx={StyleLeftBox}>
             <Container >
@@ -73,11 +99,10 @@ export const EditTemplate: FC<Props> = (props) => {
                       <ErrorBoundary FallbackComponent={ErrorFallback} >
                         <Graphviz dot={String(children)} />
                       </ErrorBoundary>
-                    ) : (
+                    ) :
                       <code className={className} {...props}>
                         {children}
                       </code>
-                    )
                   }
                 }}
               />

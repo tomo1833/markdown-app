@@ -6,7 +6,6 @@ from flask_cors import CORS
 import pymysql.cursors
 import json
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -38,7 +37,7 @@ def get_markdown():
 def get_markdown_url(path):
     conn = db_connection()
     with conn.cursor() as cur:
-        cur.execute(f"SELECT url, title, body FROM markdown WHERE url = '{path}'")
+        cur.execute(f"SELECT id, url, title, body FROM markdown WHERE url = '{path}'")
         results = cur.fetchall()
 
     if not results:
@@ -71,4 +70,35 @@ def put_markdown(path):
             f"UPDATE markdown SET title = '{title}', body = '{body}' WHERE url = '{path}' ")
         conn.commit()
 
+    return RESULT_CODE_SUCESS
+
+
+@app.route('/tag/<id>', methods=["GET"])
+def get_tag(id):
+    conn = db_connection()
+    with conn.cursor() as cur:
+        cur.execute(f"SELECT mt.id, tm.name, tm.id AS tag_id FROM tag_master tm INNER JOIN markdown_tag mt ON tm.id = mt.tag_id WHERE mt.id = {id}")
+        results = cur.fetchall()
+
+    if not results:
+        return json.dumps({}, indent=2)
+    return json.dumps(results, indent=2)
+
+
+@app.route('/tag/<id>', methods=["POST"])
+def post_tag(id):
+    req = request.json
+    conn = db_connection()
+    with conn.cursor() as cur:
+        cur.execute(f"DELETE FROM markdown_tag WHERE id = {id} ")
+        conn.commit()
+        for data in req:
+            cur.execute(f"SELECT id, name FROM tag_master WHERE name = '{data['name']}'")
+            if not cur.fetchall():
+                cur.execute(f"INSERT INTO tag_master (name) values('{data['name']}')")
+                conn.commit()
+
+            cur.execute(f"INSERT INTO markdown_tag (id, tag_id) SELECT {id} AS id, tm.id AS tag_id FROM tag_master tm WHERE tm.name = '{data['name']}'")
+            conn.commit()    
+    
     return RESULT_CODE_SUCESS

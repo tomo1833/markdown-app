@@ -11,7 +11,7 @@ export const CustomEditor: FC<Props> = (props) => {
   const { markdown, onChangeValue } = props;
 
   const defalutValue = useRef(markdown.body.split("\n").map((value: string, index: React.Key) => {
-    return React.createElement('div', { key: index }, value !== "" ? value : React.createElement('br'))
+    return React.createElement('div', { key: index }, value)
   }));
 
   const reactNode = defalutValue.current;
