@@ -21,7 +21,7 @@ export const TopTemplate: FC<Props> = (props) => {
   const onClickNewPage = () => { navigate('create_new_page') };
 
   const theme = Theme;
-  const styleContainer = { display: "flex", flexDirection: "row", paddingTop: "10px" };
+  const styleContainer = { display: "flex", flexDirection: "row", paddingTop: "20px", paddingBottom: "20px" };
 
   return (
     <ThemeProvider theme={theme}>
@@ -32,7 +32,7 @@ export const TopTemplate: FC<Props> = (props) => {
           <MarkdownCardList markdowns={markdowns} />
         </Container>
       </Box>
-      <Fab sx={{ position: "absolute", right: "16px", bottom: "16px" }} color="secondary" aria-label="add" onClick={onClickNewPage}>
+      <Fab sx={{ position: "fixed", right: "16px", bottom: "16px" }} color="secondary" aria-label="add" onClick={onClickNewPage}>
         <AddIcon />
       </Fab>
     </ThemeProvider>

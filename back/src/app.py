@@ -73,6 +73,19 @@ def put_markdown(path):
     return RESULT_CODE_SUCESS
 
 
+@app.route('/markdown/<id>', methods=["DELETE"])
+def delete_markdown(id):
+    conn = db_connection()
+    with conn.cursor() as cur:
+        cur.execute(f"DELETE FROM markdown_tag WHERE id = {id} ")
+
+        cur.execute(f"DELETE FROM markdown WHERE id = {id} ")
+       
+        conn.commit()
+    
+    return RESULT_CODE_SUCESS
+
+
 @app.route('/tag/<id>', methods=["GET"])
 def get_tag(id):
     conn = db_connection()

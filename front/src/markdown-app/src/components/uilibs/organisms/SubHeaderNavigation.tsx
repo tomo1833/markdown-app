@@ -14,6 +14,7 @@ import { SwitchTextFieldTypography } from "../molecules/SwitchTextFieldTypograph
 import { SwitchModeButtonNavi } from "../molecules/SwitchModeNavi";
 import { SwitchInsertUpdateNavi } from "../molecules/SwitchInsertUpdateNavi";
 import { Theme } from "../theme/Theme";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   markdown: MarkdownType;
@@ -46,6 +47,8 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
   } = props;
 
   const [open, setOpen] = useState(false);
+  
+  const navigate = useNavigate();
 
   const onChangeURL = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ id: markdown.id, url: event.target.value, title: markdown.title, body: markdown.body }) };
   const onChangeTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => { setMarkdown({ id: markdown.id, url: markdown.url, title: event.target.value, body: markdown.body }) };
@@ -64,6 +67,13 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
       .then(res => {
         console.log(res.data);
         setOpen(true);
+      });
+  };
+
+  const onClickDeleteMarkdown = () => {
+    axios.delete(`http://localhost:5000/markdown/` + markdown.id, markdown)
+      .then(res => {
+        navigate('/'); 
       });
   };
 
@@ -90,6 +100,7 @@ export const SubHeaderNavigation: FC<Props> = (props) => {
             setTagOpen={setTagOpen}
             onClickSaveMarkdown={onClickSaveMarkdown}
             onClickUpdateMarkdown={onClickUpdateMarkdown}
+            onClickDeleteMarkdown={onClickDeleteMarkdown}
             tagDialogUpdate={tagDialogUpdate} />
           <SwitchModeButtonNavi editMode={editMode} onClickSwitchMode={onClickSwitchMode} />
         </Box>
