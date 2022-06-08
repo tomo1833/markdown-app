@@ -7,12 +7,14 @@ export const Top: FC = () => {
 
   const [markdowns, setMarkdowns] = useState<Array<MarkdownType>>([]);
 
+  const [urlLocation, setUrlLocation] = useState<string>("");
+
   useEffect(() => {
     axios.get<Array<MarkdownType>>("http://localhost:5000/markdown")
       .then(res => { setMarkdowns(res.data) })
   }, [])
 
   return (
-    <TopTemplate markdowns={markdowns} />
-  )
-}
+    <TopTemplate markdowns={markdowns} setUrlLocation={setUrlLocation} />
+  );
+};

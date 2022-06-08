@@ -9,10 +9,17 @@ interface Props {
   onChangeValue: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
-
 export const CustomTextField: FC<Props> = (props) => {
+  
   const { label, value, onChangeValue } = props;
+
   return (
-    <TextField InputLabelProps={{style: { color: Theme.palette.secondary.contrastText, borderColor: Theme.palette.secondary.contrastText } }} inputProps={{ style: { color: Theme.palette.secondary.contrastText } }} label={label} value={value} onChange={onChangeValue} />
+    <TextField
+      InputLabelProps={{ style: { color: Theme.palette.secondary.contrastText, borderColor: Theme.palette.secondary.contrastText } }}
+      inputProps={{ style: { color: Theme.palette.secondary.contrastText } }}
+      label={label}
+      value={value}
+      onChange={onChangeValue}
+    />
   );
 };

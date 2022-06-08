@@ -11,7 +11,7 @@ import {
 
 import { MarkdownType } from "../../../types/MarkdownType.type";
 import { SwitchTextFieldTypography } from "../molecules/SwitchTextFieldTypography";
-import { SwitchModeButtonNavi } from "../molecules/SwitchModeNavi";
+import { SwitchModeButtonNavi } from "../molecules/SwitchModeButtonNavi";
 import { SwitchInsertUpdateNavi } from "../molecules/SwitchInsertUpdateNavi";
 import { Theme } from "../theme/Theme";
 import { useNavigate } from "react-router-dom";
