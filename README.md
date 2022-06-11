@@ -13,7 +13,22 @@ Typescript練習用に作成しました。
 以下のブログに情報を載せています。
 [40代から始めるブログ](https://bsf40.blogspot.com/)
 
+
+## cloneで実行する方法（検討中）
+```
+git clone git@github.com:tomo1833/markdown-app.git
+
+cd markdown-app
+
+docker-compose run --rm front sh -c "cd markdown-app && npm i"
+
+docker-compose up
+```
+
 ### 履歴
+#### 2022年06月11日　ver 0.4.6
+* [マークダウン編集画面]入力が画面超過すると背景が黒から白になる #1
+
 #### 2022年06月08日　ver 0.4.5
 * トップページにサイドメニューを追加
 
