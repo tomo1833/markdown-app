@@ -22,12 +22,13 @@ export const CustomEditor: FC<Props> = (props) => {
 
   return (
     <div
-      style={{ backgroundColor: "#000000", color: "#ffffff", width: "100%", height: "100%" }}
+      style={{ backgroundColor: "#000000", color: "#ffffff", width: "100%", height: "100%"}}
     >
       <div
         contentEditable
         onInput={handleInput}
         suppressContentEditableWarning={true}
+        style={{ padding: "0 10px", outline: "none"}}
       >
         {reactNode}
       </div>

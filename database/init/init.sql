@@ -11,6 +11,8 @@ CREATE DATABASE IF NOT EXISTS mdb;
 --DROP TABLE mdb.markdown;
 --INSERT INTO mdb.markdown (url, title, body) SELECT url, title, body FROM mdb.markdown2  
 --DROP TABLE mdb.markdown2;
+
+
 CREATE TABLE IF NOT EXISTS markdown (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     url varchar(500),

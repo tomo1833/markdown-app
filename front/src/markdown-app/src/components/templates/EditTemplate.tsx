@@ -51,10 +51,10 @@ export const EditTemplate: FC<Props> = (props) => {
     onClickSwitchMode
   } = props;
 
-  const StyleTemplateBox = { display: "flex", flexDirection: "column", height: "100vh" };
-  const StyleMainBox = { display: "flex", flexDirection: "row", height: "100vh", width: '100%' };
-  const StyleLeftBox = { height: "100%", width: '50%', backgroundColor: Theme.palette.primary.main };
-  const StyleRightBox = { height: "100vh", width: '50%' };
+  const StyleTemplateBox = { display: "grid", gridTemplateRows: " auto auto 1fr", height: "100vh", overflowY: "hidden" };
+  const StyleMainBox = { display: "flex", flexDirection: "row", width: '100%', overflowY: "hidden" };
+  const StyleLeftBox = { width: '50%', backgroundColor: Theme.palette.primary.main, overflowY: "auto" };
+  const StyleRightBox = { width: '50%', overflowY: "auto" };
 
   const [value, setValue] = useState<string>(markdown.body);
   const onChangeValue = (value: string) => { console.log(value); setMarkdown({ id: markdown.id, url: markdown.url, title: markdown.title, body: value }); setValue(value) };
